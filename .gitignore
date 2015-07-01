@@ -1,0 +1,6 @@
+.DS_Store
+build/
+project_source/builds/
+/node_modules/
+*.diff
+*.log
