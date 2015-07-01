@@ -1,0 +1,23 @@
+{
+  "name": "ReactKit",
+  "version": "1.0.0",
+  "description": "PUTAO'S REACT KIT BY REACT AND WEBPACK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KaKmi/ReactKit.git"
+  },
+  "author": "JARED",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KaKmi/ReactKit/issues"
+  },
+  "homepage": "https://github.com/KaKmi/ReactKit",
+  "devDependencies": {
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.10.0"
+  }
+}
