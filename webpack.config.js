@@ -92,6 +92,7 @@ if(TARGET==='dev'){
       'webpack-dev-server/client?http://' + IP + ':' + PORT,
       'webpack/hot/only-dev-server'
     ],
+    devtool:'source-map',
     module:{
       loaders:[
         {
