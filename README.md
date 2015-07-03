@@ -1,8 +1,7 @@
 ReactKit Sheet
 =================
 
-Time Sheet Component for React. Modified from [timesheet.js](https://github.com/sbstjn/timesheet.js)
-
+putao's ReactKit
 ## Demo & Examples
 
 
