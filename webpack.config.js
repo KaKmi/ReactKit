@@ -2,6 +2,8 @@ var path = require('path');
 var merge = require('webpack-merge');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+var ExtractTextPlugin =require('extract-text-webpack-plugin');
 var TARGET = process.env.TARGET;
 var ROOT_PATH =path.resolve(__dirname);
 var common ={
@@ -27,8 +29,8 @@ if(TARGET ==='build'){
         },
         {
           test: /\.css$/,
-          loaders: ['style', 'css']
-        },
+          loader: ExtractTextPlugin.extract('style', 'css')
+        }
       ]
     },
     plugins:[
@@ -45,6 +47,7 @@ if(TARGET ==='build'){
             'NODE_ENV':JSON.stringify('production')
           }
         }),
+        new ExtractTextPlugin('styles.css'),
     ]
   });
 }
@@ -64,7 +67,7 @@ if(TARGET==='dev'){
       loaders:[
         {
           test:/\.js/,
-          loaders:['react-hot','babel?stage=1'],
+          loaders:['react-hot','babel','flowcheck','babel?stage=1&blacklist=flow'],
           include:path.resolve(ROOT_PATH,'app')
         },
         {

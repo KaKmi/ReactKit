@@ -1,47 +1,36 @@
-var React = require('react');
-var Notes = require('./Notes');
-//var alt = require('../libs/alt');
-var NoteActions = require('../actions/NoteActions');
-var NoteStore = require('../stores/NoteStore');
+import AltContainer from 'alt/AltContainer';
+import React from 'react';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd/modules/backends/HTML5';
+import alt from '../libs/alt';
+import Lanes from './Lanes';
+import LaneActions from '../actions/LaneActions';
+import LaneStore from '../stores/LaneStore';
+import persist from '../decorators/persist';
+import {storage, storageName, getInitialData} from '../libs/storage';
 
-import {get,set} from '../libs/storage.js';
+@DragDropContext(HTML5Backend)
+@persist(storage, storageName, () => JSON.parse(alt.takeSnapshot()))
+export default class App extends React.Component {
+    constructor() {
+        super();
 
-class App extends React.Component{
-
-    constructor(props){
-        super(props);
-
-        this.state = NoteActions.init(get('notes'));
-        this.stroeChanged = this.stroeChanged.bind(this);
+        LaneActions.init(getInitialData('LaneStore'));
     }
-    render(){
-        var notes= this.state.notes;
+    render() {
         return (
             <div>
-                <button onClick={()=> this.addItem()}>+</button>
-                <Notes removeTask={(i)=>this.itemEdited(i)} items={notes} onEdit={(i,task)=>this.itemEdited(i,task)}/>
+                <button onClick={this.addLane}>+</button>
+                <AltContainer stores={[LaneStore]} inject={{
+               items: () => LaneStore.getState().lanes || [],
+          }}
+                    >
+                    <Lanes />
+                </AltContainer>
             </div>
         );
     }
-    componentDidMount() {
-       NoteStore.listen(this.stroeChanged);
-    }
-    componentWillMount() {
-      NoteStore.unlisten(this.stroeChanged);
-    }
-    stroeChanged(state){
-      this.setState(state);
-    }
-    itemEdited(id,task){
-      if(task){
-        NoteActions.update({id,task});
-      }else{
-        NoteActions.remove(id)
-      }
-    }
-    addItem(){
-
-      NoteActions.create('New task');
+    addLane() {
+        LaneActions.create('New lane');
     }
 }
-module.exports = App;

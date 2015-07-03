@@ -2,7 +2,29 @@
  * Created by zhaopenghodoman on 15/7/1.
  */
 var React = require('react');
-class Note extends React.Component{
+import { DragSource, DropTarget } from 'react-dnd';
+const noteSource = {
+    beginDrag(props) {
+        console.log('begin dragging note', props);
+
+        return {};
+    }
+};
+const noteTarget = {
+    hover(props, monitor) {
+        console.log('dragging note', props, monitor);
+    }
+};
+import ItemTypes from './ItemTypes';
+
+@DropTarget(ItemTypes.NOTE, noteTarget, connect => ({
+    connectDropTarget: connect.dropTarget(),
+}))
+@DragSource(ItemTypes.NOTE, noteSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+}))
+export default class Note extends React.Component{
 
     constructor(props){
         super(props);
@@ -38,4 +60,3 @@ class Note extends React.Component{
     }
 }
 
-module.exports = Note;

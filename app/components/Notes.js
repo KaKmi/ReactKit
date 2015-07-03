@@ -15,7 +15,6 @@ class Notes extends React.Component{
             <ul className='notes'>{notes.map((note, i) =>
                     <li className='note' key={'note' + i}>
                             <Note onEdit={this.props.onEdit.bind(this,i)} value={note.task} />
-                            <button onClick={this.props.removeTask.bind(this,i)}></button>
                     </li>
             )}</ul>
         )

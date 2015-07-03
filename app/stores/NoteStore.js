@@ -1,8 +1,8 @@
 var alt = require('../libs/alt');
 var NoteActions = require('../actions/NoteActions');
 class NoteStore {
-  constructor() {
-    this.bindActions(NoteActions);
+  constructor(actions) {
+    this.bindActions(actions);
 
     this.notes = [];
   }
@@ -48,4 +48,4 @@ class NoteStore {
   }
 
 }
-module.exports = alt.createStore(NoteStore);
+module.exports = NoteStore;

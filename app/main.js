@@ -1,4 +1,6 @@
-require('./stylesheets/main.css') ;
+import './stylesheets/main.css';
+import './stylesheets/lane.css';
+import './stylesheets/note.css';
 var React = require('react');
 
 console.log(React);
