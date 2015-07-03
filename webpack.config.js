@@ -7,11 +7,7 @@ var ExtractTextPlugin =require('extract-text-webpack-plugin');
 var TARGET = process.env.TARGET;
 var ROOT_PATH =path.resolve(__dirname);
 var common ={
-  entry: [path.resolve(ROOT_PATH, 'app/main')],
-  output: {
-    path: path.resolve(ROOT_PATH, 'build'),
-    filename: 'bundle.js'
-  },
+
   resolve:{
     extensions:['','.js','jsx'],
   }
@@ -19,6 +15,15 @@ var common ={
 
 if(TARGET ==='build'){
   module.exports = merge(common,{
+      entry:{
+          app: path.resolve(ROOT_PATH, 'app/main')
+          //vendors: ['react']
+      },
+      output: {
+          path: path.resolve(ROOT_PATH, 'build'),
+          filename: '[name].[chunkhash].js'
+      },
+
     module:{
       loaders:[
 
@@ -47,7 +52,9 @@ if(TARGET ==='build'){
             'NODE_ENV':JSON.stringify('production')
           }
         }),
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin('styles.css')
+
+        //new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.[chunkhash].js')
     ]
   });
 }
